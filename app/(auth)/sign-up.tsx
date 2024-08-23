@@ -7,6 +7,7 @@ import { Link, router } from 'expo-router'
 import React, { useState } from 'react'
 import { Alert, Image, ScrollView, StyleSheet, Text, View } from 'react-native'
 import { ReactNativeModal } from 'react-native-modal'
+import { fetchAPI } from '../(api)/fetch'
 const SignUp = () => {
   const { isLoaded, signUp, setActive } = useSignUp();
   const [showSuccessModal, setShowSuccessModal] = useState(false);
@@ -54,6 +55,16 @@ const SignUp = () => {
       })
 
       if (completeSignUp.status === 'complete') {
+        await fetchAPI('/(api)/user',{
+          method:"POST",
+          body:JSON.stringify({
+            name:form.name,
+            email:form.email,
+            clerkId:completeSignUp.createdUserId
+          })
+        });
+
+
         await setActive({ session: completeSignUp.createdSessionId })
         setVerification({...verification,state:"success"})
       } else {
