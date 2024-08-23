@@ -125,7 +125,7 @@ const SignUp = () => {
             <InputField 
               label='Code'
               icon={icons.lock}
-              placeholder='12345'
+              placeholder='12345 '
               keyboardType='numeric'
               onChangeText={(code)=>setVerification({...verification,code})}
             />
@@ -151,7 +151,10 @@ const SignUp = () => {
             />
             <Text className='text-3xl font-JakartaBold text-center'>Verified</Text>
             <Text className='text-base text-grey-400 font-JakartaMedium text-center mt-2'>You have succesfully verified your account</Text>
-            <CustomButton title='Browse Home' onPress={()=>router.replace('/(root)/(tabs)/home')} className='mt-5'/>
+            <CustomButton title='Browse Home' onPress={()=>{
+              setShowSuccessModal(false)
+              router.push('/(root)/(tabs)/home')
+            }} className='mt-5'/>
           </View>
           
         </ReactNativeModal>
